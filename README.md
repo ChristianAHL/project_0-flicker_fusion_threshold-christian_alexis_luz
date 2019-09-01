@@ -1,7 +1,7 @@
 # Embedded Systems - Project 0 - Flicker Fusion Threshold
 By Christian Alexis Luz
 ## ABSTRACT
-
+The device was found to be able to print a frequency value closely matching with the frequency of flicker as measured on an oscilloscope. The use of an interrupt and non-blocking functions was found to be critical to the successful operation of the device.
 ## INTRODUCTION
 This report details the develpment and testing of a flicker fusion threshold measuring device. The flicker fusion threshold is defined as the frequency at which an intermittent light stimulus appears steady (constatntly on) to an observer (Wikipedia, 2003).
 
@@ -33,7 +33,7 @@ Finally, a USB cable is connected to the Teensy to supply it with power, and to 
 #### Program Design
 This section will explain the general design of the program uploaded to the Teensy. Any other details may be seen as comments in the main.cpp source code file in the src folder or in code blocks within this section. It is also worth noting that variables were localized as much as possible within the function that they are to be used, to limit their unnecessary manipulation. A configuration section was also included in the upper section of the code for convenience.
 
-The main program loop's function is to constantly monitor the analog input coming in from pin 14 and to supply a 50% duty cycle (meaning 50% of the time on and 50% of the time off) signal to the LED through pin 12 to ahchieve flickering. This is achieved by the code seen below:
+The main program loop's function is to constantly monitor the analog input coming in from pin 14 and to supply a 50% duty cycle (meaning 50% of the time on and 50% of the time off) signal to the LED through pin 12 to achieve flickering. This is done by the code seen below:
 
 ```c
 frequency_input_raw_value = analogRead(ANALOG_FREQUENCY_INPUT_PIN);                                     //Get raw digital value of analog input from potentiometer, 0 to 1023
@@ -94,16 +94,22 @@ void ISR_button_press() //Interrupt service routine that handles print frequency
 Time spent in this ISR must be minimized to prevent any problems so its main function is relegated to simply setting frequency_requested_flag to true and to debounce the push button (by only allowing the next 'press' after a certain amount of time) to prevent multiple unintended requests. This ISR is initialized in the starting section of the code via a function prototype and the attachInterrupt() function.
 
 ## RESULTS
-In order to test the device, three frequencies were set and measured on the oscilloscope, the results pictured below:
-![Test 1](/media/OscilloscopeTest1.JPG))
-![Test 2](/media/OscilloscopeTest2.JPG))
-![Test 3](/media/OscilloscopeTest3.JPG))
+In order to test the device, three frequencies were set and measured on the oscilloscope, the frequencies being:
+18.15 Hz, 53.48 Hz, 32.36 Hz
+
+Oscilloscope readings photos may be found in the media folder.
+
+The program was then able to print the following values:
+![Serial print results of flicker frequencies](media/SerialPrintTestValues.JPG)
+
 
 
 ## DISCUSSION AND CONCLUSION
 As seen in the results section, the displayed frequency closely matched with the frequency measured by the oscilloscope. As such, the device would serve as an acceptable prototype for the project requirement. Deviation may have been imparted due to wire movement on the circuit breadboard as seen in the companion video report.
 
-At high frequency settings, overflow seems to occur since the display frequency would go to a high value. It would be good to resolve this for the project's next iteration.
+At high frequency settings, overflow seems to occur since the display frequency would go to an abnormally high value. It would be good to resolve this for the project's next iteration by delving deeper into the variable types and sizes used.
+
+Using a purpose built PCB with soldered components will also likely improve the correlation between the flicker frequency measured by the device and an oscilloscope as there are no more wire that may move.
 
 ## REFERENCES
 PJRC. (n.d.). Teensy Technical Specifications. Retrieved from https://www.pjrc.com/teensy/techspecs.html
