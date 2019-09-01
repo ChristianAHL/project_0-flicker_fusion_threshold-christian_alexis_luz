@@ -12,7 +12,7 @@ For this purpose, a Teensy 3.2 development board will be utilized to drive a LED
 #### System Overview and Circuit Design
 The circuit schematic of the system is seen below:
 
-![Flicker Fusion Threshold Measurement Device Circuit Schematic Diagram](/media/circuit_schematic.JPG)
+![Flicker Fusion Threshold Measurement Device Circuit Schematic Diagram](media/circuitSchematic.JPG)
 
 The Teensy 3.2's digital pins (such as pin 12 supplying power to the flickering LED) are noted to have an output of 3.3 V and 10 mA (PJRC, n.d.). A limiting resistor is needed to limit the current supplied to the LED, which typically has a maximum current rating of 20 mA. For this purpose, a 160 ohm resistor was provided. Calculating the resulting currrent:
 
